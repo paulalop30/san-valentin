@@ -20,6 +20,7 @@ height:100vh;
 overflow:hidden;
 }
 
+/* corazones */
 .heart{
 position:fixed;
 top:-10vh;
@@ -31,6 +32,22 @@ opacity:0.8;
 to{transform:translateY(110vh);opacity:0;}
 }
 
+/* portada */
+#portada{
+position:absolute;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.portada-img{
+width:260px;
+border-radius:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+margin-bottom:20px;
+}
+
+/* tarjeta */
 .card{
 width:90%;
 max-width:420px;
@@ -39,6 +56,7 @@ border-radius:30px;
 padding:25px;
 text-align:center;
 box-shadow:0 10px 40px rgba(0,0,0,0.2);
+display:none;
 }
 
 .gallery img{
@@ -67,6 +85,13 @@ cursor:pointer;
 
 <body>
 
+<!-- PORTADA -->
+<div id="portada">
+<img src="foto4.jpeg" class="portada-img">
+<button onclick="abrirCarta()">Abrir la carta 💌</button>
+</div>
+
+<!-- TARJETA -->
 <div id="card" class="card">
 
 <h1>💌 Feliz San Valentín 💌</h1>
@@ -96,6 +121,13 @@ width="300" height="80"></iframe>
 </div>
 
 <script>
+// abrir carta
+function abrirCarta(){
+document.getElementById("portada").style.display="none";
+document.getElementById("card").style.display="block";
+}
+
+// contador
 const startDate = new Date("2025-06-29T00:00:00");
 function updateCounter(){
 const now = new Date();
@@ -107,6 +139,7 @@ document.getElementById("counter").innerText =
 setInterval(updateCounter,1000);
 updateCounter();
 
+// corazones
 function createHeart(){
 const h=document.createElement("div");
 h.className="heart";
@@ -118,6 +151,7 @@ setTimeout(()=>h.remove(),9000);
 }
 setInterval(createHeart,600);
 
+// descargar
 function downloadCard(){
 const original = document.getElementById("card");
 const clone = original.cloneNode(true);
