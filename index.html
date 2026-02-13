@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz San Valentín 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+body{
+margin:0;
+background:linear-gradient(to bottom,#ff9ecf,#ffb6d9);
+font-family:'Pacifico', cursive;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+}
+
+.heart{
+position:fixed;
+top:-10vh;
+font-size:20px;
+animation:fall linear forwards;
+opacity:0.8;
+}
+@keyframes fall{
+to{transform:translateY(110vh);opacity:0;}
+}
+
+.card{
+width:90%;
+max-width:420px;
+background:white;
+border-radius:30px;
+padding:25px;
+text-align:center;
+box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
+
+.gallery img{
+width:100px;
+border-radius:20px;
+margin:5px;
+}
+
+.counter{
+margin:15px 0;
+color:#ff4d6d;
+font-size:18px;
+}
+
+button{
+background:#ff4d6d;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:20px;
+margin-top:15px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div id="card" class="card">
+
+<h1>💌 Feliz San Valentín 💌</h1>
+
+<p>
+Dicen que el 14 de febrero es para celebrar el amor…<br>
+y yo no quiero celebrarlo con nadie más que contigo.<br>
+¿Aceptas pasar San Valentín a mi lado? 💖
+</p>
+
+<div class="counter" id="counter"></div>
+
+<div class="gallery">
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
+</div>
+
+<br>
+
+<iframe src="https://open.spotify.com/embed/playlist/0Eln5sE7triLBkYdkWGhzu"
+width="300" height="80"></iframe>
+
+<br>
+<button onclick="downloadCard()">Descargar recuerdo</button>
+
+</div>
+
+<script>
+const startDate = new Date("2025-06-29T00:00:00");
+function updateCounter(){
+const now = new Date();
+const diff = now - startDate;
+const days = Math.floor(diff/(1000*60*60*24));
+document.getElementById("counter").innerText =
+"💞 Juntos desde el 29 de junio de 2025 — " + days + " días";
+}
+setInterval(updateCounter,1000);
+updateCounter();
+
+function createHeart(){
+const h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(5+Math.random()*4)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),9000);
+}
+setInterval(createHeart,600);
+
+function downloadCard(){
+const original = document.getElementById("card");
+const clone = original.cloneNode(true);
+
+const btn = clone.querySelector("button");
+if(btn) btn.remove();
+
+const iframe = clone.querySelector("iframe");
+if(iframe) iframe.remove();
+
+const foto = document.createElement("img");
+foto.src = "foto4.jpeg";
+foto.style.width = "220px";
+foto.style.borderRadius = "25px";
+foto.style.marginTop = "15px";
+clone.appendChild(foto);
+
+clone.style.background = "linear-gradient(to bottom,#ff9ecf,#ffb6d9)";
+clone.style.display = "block";
+clone.style.width = "420px";
+clone.style.padding = "25px";
+
+document.body.appendChild(clone);
+
+html2canvas(clone,{backgroundColor:null,scale:2}).then(canvas=>{
+const link=document.createElement("a");
+link.download="SanValentin.png";
+link.href=canvas.toDataURL("image/png");
+link.click();
+clone.remove();
+});
+}
+</script>
+
+</body>
+</html>
